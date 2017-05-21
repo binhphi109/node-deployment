@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-app-pod
+  labels:
+    app: "node-app-pod"
+spec:
+  containers:
+  - name: node-app
+    image: registry.gitlab.com/kugoo109/node-deployment:v1
+    ports:
+    - containerPort: 3000
+  imagePullSecrets:
+  - name: regsecret
