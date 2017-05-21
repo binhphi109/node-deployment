@@ -1,0 +1,22 @@
+# remove all images & container
+docker rmi -f $(docker images -a -q)
+docker rm -f $(docker ps -a -q)
+
+# local machine
+docker build . -t node-app
+docker run node-app
+docker run -d node-app
+docker run -d -p 80:3000 node-app
+docker exec -it <name> bash
+
+# deploy
+
+sudo apt-get install ruby-full
+gem install capistrano
+cap install
+cap production deploy
+
+# docker compose
+docker-compose -f docker-compose.yml build
+docker-compose -f docker-compose.yml up -d
+docker-compose -f docker-compose.yml scale web=3

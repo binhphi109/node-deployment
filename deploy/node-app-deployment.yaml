@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web
+  labels:
+    visualize: "true"
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        role: web
+        visualize: "true"
+    spec:
+      containers:
+      - name: node-app
+        image: <dockerregistry>/node-app:v1
+        ports:
+        - containerPort: 8080
