@@ -8,6 +8,8 @@ variables:
 
 build:
   stage: build
+  tags: 
+  - shared
   script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   - docker build -t $GL_IMAGE_NAME:$GL_IMAGE_TAG .
@@ -15,6 +17,8 @@ build:
 
 deploy:
   stage: deploy
+  tags: 
+  - shared
   script:
   - oc config set-cluster my-cluster --server=$KUBE_URL --insecure-skip-tls-verify=true
   - oc config set-credentials admin --token=$KUBE_TOKEN
