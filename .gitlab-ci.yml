@@ -16,9 +16,8 @@ build:
 deploy:
   stage: deploy
   script:
-  - kubectl config set-cluster my-cluster --server=$KUBE_URL --insecure-skip-tls-verify=true
-  - kubectl config set-credentials admin --token=$KUBE_TOKEN
-  - kubectl config set-context my-context --cluster=my-cluster --user=admin --namespace=$KUBE_NAMESPACE
-  - kubectl config use-context my-context
-  - kubectl apply -f ./deploy/node-app-pod.yaml
-  - kubectl apply -f ./deploy/node-app-service.yaml
+  - oc config set-cluster my-cluster --server=$KUBE_URL --insecure-skip-tls-verify=true
+  - oc config set-credentials admin --token=$KUBE_TOKEN
+  - oc config set-context my-context --cluster=my-cluster --user=admin --namespace=$KUBE_NAMESPACE
+  - oc config use-context my-context
+  - oc apply -f ./deploy/node-app-pod.yaml
