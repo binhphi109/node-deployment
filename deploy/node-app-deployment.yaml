@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: node-deployment
-        image: registry.gitlab.com/kugoo109/node-deployment:v1
+        image: registry.gitlab.com/kugoo109/node-deployment:${BUILD_NUMBER}
         ports:
         - containerPort: 3000
       imagePullSecrets:

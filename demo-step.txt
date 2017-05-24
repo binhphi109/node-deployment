@@ -9,12 +9,21 @@ docker run -d node-app
 docker run -d -p 80:3000 node-app
 docker exec -it <name> bash
 
-# deploy
+# push to registry
+docker login registry.gitlab.com
+docker build -t registry.gitlab.com/kugoo109/node-deployment:v1 .
+docker push registry.gitlab.com/kugoo109/node-deployment:v1
 
-sudo apt-get install ruby-full
-gem install capistrano
-cap install
-cap production deploy
+# set up kubernetes
+oc login https://api.starter-us-east-1.openshift.com --token=<hidden>
+oc create secret docker-registry regsecret
+    --docker-server=registry.gitlab.com 
+    --docker-username=kugoo109 
+    --docker-password=<password>
+    --docker-email=kugoo109@gmail.com 
+oc create -f deploy/node-app-deployment.yaml
+oc create -f deploy/node-app-service.yaml
+oc delete deployments,pods,services node-deployment
 
 # docker compose
 docker-compose -f docker-compose.yml build

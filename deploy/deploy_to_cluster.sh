@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
-kubectl create -f ./node-app-pod.yaml
-kubectl create -f ./node-app-service.yaml
-kubectl get pods
+TAG=${1}
+
+export BUILD_NUMBER=${TAG}
+
+for f in templates/*.yml
+do
+ envsubst < $f > “.generated/$(basename $f)”
+done
+
+kubectl apply -f .generated/
