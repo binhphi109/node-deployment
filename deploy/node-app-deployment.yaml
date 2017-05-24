@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: node-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: node-deployment
+    spec:
+      containers:
+      - name: node-deployment
+        image: registry.gitlab.com/kugoo109/node-deployment:v1
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:
+      - name: regsecret
